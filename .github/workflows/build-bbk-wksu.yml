@@ -246,7 +246,7 @@ jobs:
     - name: ABI Bypass
       run: |
         cd "$SYNC_DIR"
-        bash "$OGKI_HELPERS/bypass-ogki-abi.sh"
+        bash "$OGKI_HELPERS/bypass-oem-abi.sh"
 
     - name: Remove Dirty Suffix
       run: |
