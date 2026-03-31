@@ -447,16 +447,16 @@
  #include <linux/shmem_fs.h>
  #include <linux/uaccess.h>
  #include <linux/pkeys.h>
-@@ -310,6 +313,9 @@
- #endif
+@@ -316,6 +319,9 @@
+ #endif // #ifdef CONFIG_KSU_SUSFS_SUS_MAP
  		dev = inode->i_sb->s_dev;
  		ino = inode->i_ino;
 +#ifdef CONFIG_ZEROMOUNT
 +		zeromount_spoof_mmap_metadata(inode, &dev, &ino);
 +#endif
+ 		pgoff = ((loff_t)vma->vm_pgoff) << PAGE_SHIFT;
  #ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
- bypass_orig_flow:
- #endif
+ 		susfs_sus_kstat_spoof_show_map_vma(inode, &dev, &ino);
 --- a/fs/zeromount.c	2026-03-01 02:48:33.847739002 +0100
 +++ b/fs/zeromount.c	2026-03-01 02:42:39.836505791 +0100
 @@ -0,0 +1,1526 @@
