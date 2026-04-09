@@ -190,7 +190,6 @@ jobs:
 
         SUPERCALLS="drivers/kernelsu/supercalls.c"
         if [ -f "$SUPERCALLS" ]; then
-          sed -i '/ksu_mark_running_process/d' "$SUPERCALLS"
           if grep -q "vzalloc" "$SUPERCALLS" && ! head -5 "$SUPERCALLS" | grep -q "vmalloc.h"; then
             sed -i '1a #include <linux/vmalloc.h>' "$SUPERCALLS"
           fi
